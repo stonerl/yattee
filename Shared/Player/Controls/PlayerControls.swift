@@ -70,7 +70,7 @@ struct PlayerControls: View {
                         }
                     }
                 #else
-                    .offset(y: 2)
+                        .offset(y: 2)
                 #endif
             }
 
@@ -90,11 +90,13 @@ struct PlayerControls: View {
                         Section {
                             #if !os(tvOS)
                                 HStack {
+                                    Spacer()
                                     seekBackwardButton
                                     Spacer()
                                     togglePlayButton
                                     Spacer()
                                     seekForwardButton
+                                    Spacer()
                                 }
                                 .font(.system(size: playerControlsLayout.bigButtonFontSize))
                             #endif
@@ -251,8 +253,7 @@ struct PlayerControls: View {
     @ViewBuilder var controlsBackground: some View {
         ZStack {
             if player.musicMode,
-               let url = controlsBackgroundURL
-            {
+               let url = controlsBackgroundURL {
                 ThumbnailView(url: url)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .transition(.opacity)
@@ -265,8 +266,7 @@ struct PlayerControls: View {
 
     var controlsBackgroundURL: URL? {
         if let video = player.videoForDisplay,
-           let url = thumbnails.best(video)
-        {
+           let url = thumbnails.best(video) {
             return url
         }
 

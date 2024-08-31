@@ -22,8 +22,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
             // Configure the audio session for playback
             do {
-                // .mixWithOthers is needed for Audio Ducking and only works with mode: .default
-                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
             } catch {
                 logger.error("Failed to set audio session category: \(error)")
             }

@@ -1261,11 +1261,17 @@ final class PlayerModel: ObservableObject {
             switch type {
             case .began:
                 logger.info("Audio session interrupted.")
+                // We need to call pause() to set all variables correctly, and play()
+                // directly afterwards, because the .began interrupt is sent after audio
+                // ducking ended and playback would pause. Audio ducking usually happens
+                // when using headphones.
+                pause()
+                play()
+            case .ended:
+                logger.info("Audio session interruption ended.")
                 // We need to call pause() to set all variables correctly.
                 // Otherwise, playback does not resume when the interruption ends.
                 pause()
-            case .ended:
-                logger.info("Audio session interruption ended.")
                 play()
             default:
                 break
